@@ -14,7 +14,7 @@ Please email your queries to Alejandro Vigna-Gómez (avignagomez@nbi.ku.dk).
 ## Acknowledgements
 If you use any scripts in this repo for results presented in a scientific publication, please cite:
 
-1. Vigna-Gómez, A. & Ramirez-Ruiz, E. 2022 
+Vigna-Gómez, A. & Ramirez-Ruiz, E. 2022 (submitted)
 
 ## Author Contributions
 All scripts here were written and curated by Alejandro Vigna-Gómez. 
