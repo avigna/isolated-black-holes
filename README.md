@@ -5,7 +5,7 @@
 These scripts have been developed to parse and analyse COMPAS results from [Vigna-Gómez & Ramirez-Ruiz 2022](https://arxiv.org/abs/2203.08478)
 
 ## Resources
-The underlying data which is used and called in these scripts will be made publicly available upon publication via:
+The underlying data which is used and called in these scripts is publicly available via:
 [DOI:10.5281/zenodo.6346444](https://zenodo.org/record/6346444)
 
 ## Contact
