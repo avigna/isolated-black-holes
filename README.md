@@ -6,7 +6,7 @@ These scripts have been developed to parse and analyse COMPAS results from [Vign
 
 ## Resources
 The underlying data which is used and called in these scripts will be made publicly available upon publication via:
-[DOI:10.5281/zenodo.6346444](10.5281/zenodo.6346444)
+[DOI:10.5281/zenodo.6346444](https://zenodo.org/record/6346444)
 
 ## Contact
 Please email your queries to Alejandro Vigna-Gómez (avignagomez@nbi.ku.dk).
