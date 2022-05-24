@@ -2,7 +2,7 @@
 ## A binary origin for the first isolated stellar-mass black hole detected with astrometric microlensing
 
 ## Documentation
-These scripts have been developed to parse and analyse COMPAS results from Vigna-Gómez & Ramirez-Ruiz 2022 (submitted)
+These scripts have been developed to parse and analyse COMPAS results from [Vigna-Gómez & Ramirez-Ruiz 2022](https://arxiv.org/abs/2203.08478)
 
 ## Resources
 The underlying data which is used and called in these scripts will be made publicly available upon publication via:
