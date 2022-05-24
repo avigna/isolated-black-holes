@@ -1,6 +1,5 @@
-function calculate_and_plot_contours(filename, metallicity, debugFlag, plotFlag, saveFlag, densityInverval)
+function calculate_and_plot_contours(filename, metallicity, debugFlag, plotFlag, savePlotFlag, savaDataFlag, densityInverval, lowerLimit)
 label = num2str(metallicity);
-
 % MACROS
 % Stellar types as used in COMPAS, originally defined by Hurley+2000
 MASSIVE_MAIN_SEQUENCE   = 1;
@@ -8,7 +7,6 @@ NEUTRON_STAR            = 13;
 BLACK_HOLE              = 14;
 AgeOfUniverseMyr        = 13.772*1000;
 RsolToAU                = 0.00465047;
-% AUperyrTokmpers         = 4.74372;
 
 % Data observed
 % Sahu: https://ui.adsabs.harvard.edu/abs/2022arXiv220113296S/abstract
@@ -25,15 +23,13 @@ mass_Lam = 2.9;
 error_Lam = 1.3;
 velocity_Lam = 25;
 
-% Get isolated systems
-lowerLimit = 80;
+% Get isolated systems by resampling the primary of wide COMPAS binaries
 [  sys_realMassZAMS, ...
    iso_real_total_mass_ZAMS,...
    iso_kick_magnitude,...
    iso_mass_SN,...
    iso_stellar_type_SN] = resampling_COMPAS(filename,debugFlag,lowerLimit);
-
-realMassZAMS = sys_realMassZAMS+iso_real_total_mass_ZAMS
+realMassZAMS = sys_realMassZAMS+iso_real_total_mass_ZAMS;
 
 % /BSE_Supernovae
 SNe_component_speed_SN      = h5read(filename,'/BSE_Supernovae/ComponentSpeed(SN)');
@@ -47,9 +43,25 @@ SNe_supernova_state         = h5read(filename,'/BSE_Supernovae/Supernova_State')
 SNe_systemic_speed          = h5read(filename,'/BSE_Supernovae/SystemicSpeed');
 SNe_unbound                 = h5read(filename,'/BSE_Supernovae/Unbound');
 
+% SNe_supernova_state
+% No supernova = 0
+% Star 1 is the supernova = 1
+% Star 2 is the supernova = 2
+% Both stars are supernovae = 3
+
 % Calculate quantities
 SNe_total_mass      = SNe_mass_CP + SNe_mass_SN;
 SNe_periapsis       = SNe_SemiMajorAxis.*(1-SNe_eccentricity);
+
+% Values for creatings contours
+% [bandwith, density, X, Y] = kde2d(data);
+% Template
+% data = [SNe_mass_SN(index_), SNe_component_speed_SN(index_)];
+% [bandwith, density, X, Y] = kde2d(data,n,MIN_XY,MAX_XY);
+% v =max(max(density)).*[0.01,1.0];
+n=2^10;
+MIN_XY = [1, 0];
+MAX_XY = [100, 1000];
 
 % Find indices of interest
 % 0. Isolated BH
@@ -66,36 +78,19 @@ SNe_periapsis       = SNe_SemiMajorAxis.*(1-SNe_eccentricity);
 % 11. BBH merger product,
 % 12. NSNS merger product.
 
-% SNe_supernova_state
-% No supernova = 0
-% Star 1 is the supernova = 1
-% Star 2 is the supernova = 2
-% Both stars are supernovae = 3
-
-% Values for creatings contours
-% [bandwith, density, X, Y] = kde2d(data);
-% Template
-% data = [SNe_mass_SN(index_), SNe_component_speed_SN(index_)];
-% [bandwith, density, X, Y] = kde2d(data,n,MIN_XY,MAX_XY);
-% v =max(max(density)).*[0.01,1.0];
-n=2^10;
-MIN_XY = [1, 0];
-MAX_XY = [100, 1000];
-
 % 0. Isolated BH
 index_zero      = find(iso_stellar_type_SN == BLACK_HOLE);
-number_zero     = length(index_zero)
-data_zero        = [iso_mass_SN(index_zero), iso_kick_magnitude(index_zero)];
-% [bandwith_zero, density_zero, X_zero, Y_zero] = kde2d(data_zero,2^,MIN_XY,MAX_XY);
+number_zero     = length(index_zero);
+data_zero       = [iso_mass_SN(index_zero), iso_kick_magnitude(index_zero)];
 [bandwith_zero, density_zero, X_zero, Y_zero] = kde2d(data_zero);
-v_zero           = max(max(density_zero)).*[1.0-densityInverval,1.0];
+v_zero          = max(max(density_zero)).*[1.0-densityInverval,1.0];
 
 
 % 1. First born BH (when disrupted)
 index_one       = find( SNe_stellar_type_SN == BLACK_HOLE & ...
                         (SNe_supernova_state == 1 | SNe_supernova_state == 3) & ...
                         SNe_unbound == 1);
-number_one      = length(index_one)
+number_one      = length(index_one);
 data_one        = [SNe_mass_SN(index_one), SNe_component_speed_SN(index_one)];
 [bandwith_one, density_one, X_one, Y_one] = kde2d(data_one,n,MIN_XY,MAX_XY);
 v_one           = max(max(density_one)).*[1.0-densityInverval,1.0];
@@ -105,7 +100,7 @@ v_one           = max(max(density_one)).*[1.0-densityInverval,1.0];
 index_two       = find( SNe_stellar_type_SN == NEUTRON_STAR & ...
                         (SNe_supernova_state == 1 | SNe_supernova_state == 3) & ...
                         SNe_unbound == 1);
-number_two      = length(index_two)
+number_two      = length(index_two);
 data_two        = [SNe_mass_SN(index_two), SNe_component_speed_SN(index_two)];
 [bandwith_two, density_two, X_two, Y_two] = kde2d(data_two,2^4,MIN_XY,[3 1000]);
 v_two           = max(max(density_two)).*[1.0-densityInverval,1.0];
@@ -113,7 +108,7 @@ v_two           = max(max(density_two)).*[1.0-densityInverval,1.0];
 % 3. second born BH (when disrupted)
 index_three     = find( (SNe_stellar_type_SN == BLACK_HOLE & SNe_supernova_state == 2 & SNe_unbound == 1) | ...
                         (SNe_stellar_type_CP == BLACK_HOLE & SNe_supernova_state == 3 & SNe_unbound == 1));
-number_three    = length(index_three)
+number_three    = length(index_three);
 data_three      = [SNe_mass_SN(index_three), SNe_component_speed_SN(index_three)];
 [bandwith_three, density_three, X_three, Y_three] = kde2d(data_three,n,MIN_XY,MAX_XY);
 v_three         = max(max(density_three)).*[1.0-densityInverval,1.0];
@@ -122,7 +117,7 @@ v_three         = max(max(density_three)).*[1.0-densityInverval,1.0];
 index_five      = find( SNe_stellar_type_SN == BLACK_HOLE & ...
                         SNe_stellar_type_CP == MASSIVE_MAIN_SEQUENCE & ...
                         SNe_unbound == 0);
-number_five     = length(index_five)
+number_five     = length(index_five);
 data_five       = [SNe_total_mass(index_five), SNe_systemic_speed(index_five)];
 [bandwith_five, density_five, X_five, Y_five] = kde2d(data_five);
 v_five          = max(max(density_five)).*[1.0-densityInverval,1.0];
@@ -131,7 +126,7 @@ v_five          = max(max(density_five)).*[1.0-densityInverval,1.0];
 index_six       = find( SNe_stellar_type_SN == NEUTRON_STAR &...
                         SNe_stellar_type_CP == MASSIVE_MAIN_SEQUENCE &...
                         SNe_unbound == 0);
-number_six      = length(index_six)
+number_six      = length(index_six);
 data_six = [SNe_total_mass(index_six), SNe_systemic_speed(index_six)];
 [bandwith_six, density_six, X_six, Y_six] = kde2d(data_six,2^9,[1.5 0],[107 500]);
 v_six           = max(max(density_six)).*[1.0-densityInverval,1.0];
@@ -157,10 +152,10 @@ v_ten           = max(max(density_ten)).*[1.0-densityInverval,1.0];
 
 SNe_SemiMajorAxis_ten_temp  = SNe_SemiMajorAxis(index_all_BHNSs);
 SNe_SemiMajorAxis_ten       = SNe_SemiMajorAxis_ten_temp(index_ten);
-SNe_periapsis_ten_temp      = SNe_periapsis(index_all_BHNSs);
-SNe_periapsis_ten           = SNe_periapsis_ten_temp(index_ten);
+% SNe_periapsis_ten_temp      = SNe_periapsis(index_all_BHNSs);
+% SNe_periapsis_ten           = SNe_periapsis_ten_temp(index_ten);
 
-% 11. BBH mergers
+% 11. BH-BH mergers
 index_all_BBHs     = find( ((SNe_stellar_type_SN == BLACK_HOLE & SNe_stellar_type_CP == BLACK_HOLE))...
                         & SNe_unbound == 0);
 if debugFlag
@@ -180,10 +175,10 @@ v_eleven           = max(max(density_eleven)).*[1.0-densityInverval,1.0];
 
 SNe_SemiMajorAxis_eleven_temp       = SNe_SemiMajorAxis(index_all_BBHs);
 SNe_SemiMajorAxis_eleven            = SNe_SemiMajorAxis_eleven_temp(index_eleven);
-SNe_periapsis_eleven_temp           = SNe_periapsis(index_all_BBHs);
-SNe_periapsis_eleven                = SNe_periapsis_eleven_temp(index_eleven);
+% SNe_periapsis_eleven_temp           = SNe_periapsis(index_all_BBHs);
+% SNe_periapsis_eleven                = SNe_periapsis_eleven_temp(index_eleven);
 
-% 12. NSNS mergers
+% 12. NS-NS mergers
 index_all_BNSs      = find( ((SNe_stellar_type_SN == NEUTRON_STAR & SNe_stellar_type_CP == NEUTRON_STAR))...
                         & SNe_unbound == 0);
 if debugFlag
@@ -203,8 +198,20 @@ v_twelve            = max(max(density_twelve)).*[1.0-densityInverval,1.0];
 
 SNe_SemiMajorAxis_twelve_temp       = SNe_SemiMajorAxis(index_all_BNSs);
 SNe_SemiMajorAxis_twelve            = SNe_SemiMajorAxis_twelve_temp(index_twelve);
-SNe_periapsis_twelve_temp           = SNe_periapsis(index_all_BNSs);
-SNe_periapsis_twelve                = SNe_periapsis_twelve_temp(index_twelve);
+% SNe_periapsis_twelve_temp           = SNe_periapsis(index_all_BNSs);
+% SNe_periapsis_twelve                = SNe_periapsis_twelve_temp(index_twelve);
+
+if debugFlag
+    number_zero
+    number_one
+    number_two
+    number_three
+    number_five
+    number_six
+    number_ten
+    number_eleven
+    number_twelve
+end
 
 % Make histogram of separation
 hist                    = histogram(log10(SNe_SemiMajorAxis(index_five)),'Normalization','pdf');
@@ -253,6 +260,7 @@ clear hist
 clf
 % Plot
 if plotFlag
+    figure()
     fs=18;
     lw=2.0;
     sz=1.0;
@@ -264,15 +272,6 @@ if plotFlag
     Xlim = [1 100];
 
     color0 = 105.*[1 1 1]./255;
-
-%     color1 = [138 186 237]./255;
-%     color2 = [154 204 108]./255;
-%     color3 = [161 71 114]./255;    
-%     color4 = [235 201 164]./255;
-%     color5 = [213 94 0]./255;
-%     color6 = [240 228 66]./255;
-%     color7 = [0 114 178]./255;
-
     color1 = [0    0.4470    0.7410];
     color2 = [    0.8500    0.3250    0.0980];
     color3 = [    0.9290    0.6940    0.1250];
@@ -296,7 +295,6 @@ if plotFlag
     ax.FontName = 'Times New Roman';
     box on
 
-%     contour(X_two,Y_two,density_two,v_two,'Color','k','Linewidth',lw)    
     contour(X_zero,Y_zero,density_zero,v_zero,'Color',color0,'Linewidth',lw)
     contour(X_one,Y_one,density_one,v_one,'Color',color1,'Linewidth',lw)
     contour(X_three,Y_three,density_three,v_three,'Color',color2,'Linewidth',lw)
@@ -325,7 +323,7 @@ if plotFlag
             'box','off',...
             'location','northeast',...
             'FontName','Times New Roman')
-    if saveFlag
+    if savePlotFlag
         print(gcf,strcat('../plots/png/figure2a_Z=',label,'.png'),'-dpng','-r300');
         saveas(gcf,strcat('../plots/pdf/figure2a_Z=',label,'.pdf'))
     end
@@ -368,7 +366,7 @@ if plotFlag
         'box','off',...
         'location','northeast')
 
-    if saveFlag
+    if savePlotFlag
         print(gcf,strcat('../plots/png/figure2b_Z=',label,'.png'),'-dpng','-r300');
         saveas(gcf,strcat('../plots/pdf/figure2b_Z=',label,'.pdf'))
     end
@@ -378,7 +376,7 @@ if plotFlag
         figure()
         lw2=2.5;
         hold on
-        text(2.5,2.75,strcat('Z=',label),'FontSize',fs,'FontName','Times New Roman')
+        text(2.75,2.75,strcat('Z=',label),'FontSize',fs,'FontName','Times New Roman')
         xlim([-4 4])
         xticks([-4:4])
         xlabel('log_{10} (a [AU])','FontSize',fs,'FontName','Times New Roman')
@@ -411,9 +409,9 @@ if plotFlag
                 'box','off',...
                 'location','northwest')
     
-        if saveFlag
-            print(gcf,strcat('../plots/png/figure4_Z=',label,'.png'),'-dpng','-r300');
-            saveas(gcf,strcat('../plots/pdf/figure4_Z=',label,'.pdf'))
+        if savePlotFlag
+            print(gcf,strcat('../plots/png/figure7_Z=',label,'.png'),'-dpng','-r300');
+            saveas(gcf,strcat('../plots/pdf/figure7_Z=',label,'.pdf'))
         end    
     end
 
@@ -428,9 +426,9 @@ M = [   realMassZAMS, ...
         number_six, ...
         number_ten, ...
         number_eleven, ...
-        number_twelve]
+        number_twelve];
 
-if saveFlag
+if savaDataFlag
     save(strcat('../data/Z_',label,'.mat'),'M')
 end
 

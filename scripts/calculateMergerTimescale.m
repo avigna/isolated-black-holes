@@ -5,7 +5,7 @@ function [T_Myr] = calculateMergerTimescale(M1,M2,a0,e0,capFlag)
 % e0 is the inital eccentricity
 % The function returns T_Myr, the merger time, in Myr
 
-% Based on Mandel 2021 fit
+% Based on Mandel (2021) fit
 % https://arxiv.org/abs/2110.09254v1
 
 Msunkg=1.98892e30;	%Msun in kg
