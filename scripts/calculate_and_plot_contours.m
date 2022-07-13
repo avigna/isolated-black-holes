@@ -198,8 +198,47 @@ v_twelve            = max(max(density_twelve)).*[1.0-densityInverval,1.0];
 
 SNe_SemiMajorAxis_twelve_temp       = SNe_SemiMajorAxis(index_all_BNSs);
 SNe_SemiMajorAxis_twelve            = SNe_SemiMajorAxis_twelve_temp(index_twelve);
-% SNe_periapsis_twelve_temp           = SNe_periapsis(index_all_BNSs);
-% SNe_periapsis_twelve                = SNe_periapsis_twelve_temp(index_twelve);
+
+% 13. NS-BH, BH-NS
+index_all_BHNSs = find( ((SNe_stellar_type_SN == NEUTRON_STAR & SNe_stellar_type_CP == BLACK_HOLE) |...
+                        (SNe_stellar_type_SN == BLACK_HOLE & SNe_stellar_type_CP == NEUTRON_STAR))...
+                        & SNe_unbound == 0);
+number_thirteen     = length(index_all_BHNSs);
+if debugFlag
+    length(index_all_BHNSs)
+end
+SNe_total_mass_thirteen        = SNe_total_mass(index_all_BHNSs);
+SNe_systemic_speed_thirteen     = SNe_systemic_speed(index_all_BHNSs);
+
+data_thirteen        = [SNe_total_mass_thirteen, SNe_systemic_speed_thirteen];
+[bandwith_thirteen, density_thirteen, X_thirteen, Y_thirteen] = kde2d(data_thirteen,n,MIN_XY,MAX_XY);
+v_thirteen           = max(max(density_thirteen)).*[1.0-densityInverval,1.0];
+
+% 11. BH-BH
+index_all_BBHs     = find( ((SNe_stellar_type_SN == BLACK_HOLE & SNe_stellar_type_CP == BLACK_HOLE))...
+                        & SNe_unbound == 0);
+number_fourteen     = length(index_all_BBHs);
+if debugFlag
+    length(index_all_BBHs)
+end
+SNe_total_mass_fourteen        = SNe_total_mass(index_all_BBHs);
+SNe_systemic_speed_fourteen     = SNe_systemic_speed(index_all_BBHs);
+data_fourteen        = [SNe_total_mass_fourteen, SNe_systemic_speed_fourteen];
+[bandwith_fourteen, density_fourteen, X_fourteen, Y_fourteen] = kde2d(data_fourteen,2^8,MIN_XY,MAX_XY);
+v_fourteen           = max(max(density_fourteen)).*[1.0-densityInverval,1.0];
+
+% 12. NS-NS
+index_all_BNSs      = find( ((SNe_stellar_type_SN == NEUTRON_STAR & SNe_stellar_type_CP == NEUTRON_STAR))...
+                        & SNe_unbound == 0);
+number_fifteen      = length(index_all_BNSs);
+if debugFlag
+    length(index_all_BNSs)
+end
+SNe_total_mass_fifteen         = SNe_total_mass(index_all_BNSs);
+SNe_systemic_speed_fifteen     = SNe_systemic_speed(index_all_BNSs);
+data_fifteen         = [SNe_total_mass_fifteen, SNe_systemic_speed_fifteen];
+[bandwith_fifteen, density_fifteen, X_fifteen, Y_fifteen] = kde2d(data_fifteen,2^6,MIN_XY,[5, 500]);
+v_fifteen            = max(max(density_fifteen)).*[1.0-densityInverval,1.0];
 
 if debugFlag
     number_zero
@@ -211,6 +250,9 @@ if debugFlag
     number_ten
     number_eleven
     number_twelve
+    number_thirteen
+    number_fourteen
+    number_fifteen
 end
 
 % Make histogram of separation
@@ -347,6 +389,9 @@ if plotFlag
     contour(X_ten,Y_ten,density_ten,v_ten,'Color',color5,'Linewidth',lw)
     contour(X_eleven,Y_eleven,density_eleven,v_eleven,'Color',color6,'Linewidth',lw)    
     contour(X_twelve,Y_twelve,density_twelve,v_twelve,'Color', color7,'Linewidth',lw)    
+    contour(X_thirteen,Y_thirteen,density_thirteen,v_thirteen,'--','Color', color5,'Linewidth',lw,'Handlevisibility','off')
+    contour(X_fourteen,Y_fourteen,density_fourteen,v_fourteen,'--','Color', color6,'Linewidth',lw,'Handlevisibility','off')    
+    contour(X_fifteen,Y_fifteen,density_fifteen,v_fifteen,'--','Color', color7,'Linewidth',lw)
 
     errorbar(mass_Sahu,velocity_Sahu,error_Sahu,'horizontal','k','LineWidth',lw,'HandleVisibility','off')
     errorbar(mass_Lam,velocity_Lam,error_Lam,'horizontal','k','LineWidth',lw,'HandleVisibility','off')
@@ -358,6 +403,9 @@ if plotFlag
         scatter(SNe_total_mass_ten, SNe_systemic_speed_ten, sz, color5, 'Filled', 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')
         scatter(SNe_total_mass_eleven, SNe_systemic_speed_eleven, sz, color6, 'Filled', 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')
         scatter(SNe_total_mass_twelve, SNe_systemic_speed_twelve, sz, color7, 'Filled', 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')
+        scatter(SNe_total_mass_thirteen, SNe_systemic_speed_thirteen, sz, color5, 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')        
+        scatter(SNe_total_mass_fourteen, SNe_systemic_speed_fourteen, sz, color6, 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')      
+        scatter(SNe_total_mass_fifteen, SNe_systemic_speed_fifteen, sz, color7, 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')        
     end
 
     legend( 'BH-NS',...

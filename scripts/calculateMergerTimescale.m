@@ -26,4 +26,3 @@ if capFlag == 1
 end
 
 end
-

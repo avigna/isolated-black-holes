@@ -95,164 +95,114 @@ end
 
 % Gather and save data
 % Single
-single_fraction_mass_5_speed_30        = calculate_single_fraction(5,30,data_zero,data_one,data_three);
-single_fraction_mass_10_speed_30       = calculate_single_fraction(10,30,data_zero,data_one,data_three);
-single_fraction_mass_15_speed_30       = calculate_single_fraction(15,30,data_zero,data_one,data_three);
-single_fraction_mass_20_speed_30       = calculate_single_fraction(20,30,data_zero,data_one,data_three);
-single_fraction_mass_100_speed_30      = calculate_single_fraction(100,30,data_zero,data_one,data_three);
-single_fraction_mass_5_speed_50        = calculate_single_fraction(5,50,data_zero,data_one,data_three);
-single_fraction_mass_10_speed_50       = calculate_single_fraction(10,50,data_zero,data_one,data_three);
-single_fraction_mass_15_speed_50       = calculate_single_fraction(15,50,data_zero,data_one,data_three);
-single_fraction_mass_20_speed_50       = calculate_single_fraction(20,50,data_zero,data_one,data_three);
-single_fraction_mass_100_speed_50      = calculate_single_fraction(100,50,data_zero,data_one,data_three);
-single_fraction_mass_5_speed_100       = calculate_single_fraction(5,100,data_zero,data_one,data_three);
-single_fraction_mass_10_speed_100      = calculate_single_fraction(10,100,data_zero,data_one,data_three);
-single_fraction_mass_15_speed_100      = calculate_single_fraction(15,100,data_zero,data_one,data_three);
-single_fraction_mass_20_speed_100      = calculate_single_fraction(20,100,data_zero,data_one,data_three);
-single_fraction_mass_100_speed_100      = calculate_single_fraction(100,100,data_zero,data_one,data_three);
+single_fraction_mass_2_5      = calculate_single_fraction(2.5,data_zero,data_one,data_three);
+single_fraction_mass_5        = calculate_single_fraction(5,data_zero,data_one,data_three);
+single_fraction_mass_10       = calculate_single_fraction(10,data_zero,data_one,data_three);
+single_fraction_mass_15       = calculate_single_fraction(15,data_zero,data_one,data_three);
+single_fraction_mass_20       = calculate_single_fraction(20,data_zero,data_one,data_three);
+single_fraction_mass_100      = calculate_single_fraction(100,data_zero,data_one,data_three);
 
 % Binary
-binary_fraction_mass_5_speed_30        = calculate_binary_fraction(5,30,data_zero,data_one,data_three);
-binary_fraction_mass_10_speed_30       = calculate_binary_fraction(10,30,data_zero,data_one,data_three);
-binary_fraction_mass_15_speed_30       = calculate_binary_fraction(15,30,data_zero,data_one,data_three);
-binary_fraction_mass_20_speed_30       = calculate_binary_fraction(20,30,data_zero,data_one,data_three);
-binary_fraction_mass_100_speed_30      = calculate_binary_fraction(100,30,data_zero,data_one,data_three);
-binary_fraction_mass_5_speed_50        = calculate_binary_fraction(5,50,data_zero,data_one,data_three);
-binary_fraction_mass_10_speed_50       = calculate_binary_fraction(10,50,data_zero,data_one,data_three);
-binary_fraction_mass_15_speed_50       = calculate_binary_fraction(15,50,data_zero,data_one,data_three);
-binary_fraction_mass_20_speed_50       = calculate_binary_fraction(20,50,data_zero,data_one,data_three);
-binary_fraction_mass_100_speed_50      = calculate_binary_fraction(100,50,data_zero,data_one,data_three);
-binary_fraction_mass_5_speed_100       = calculate_binary_fraction(5,100,data_zero,data_one,data_three);
-binary_fraction_mass_10_speed_100      = calculate_binary_fraction(10,100,data_zero,data_one,data_three);
-binary_fraction_mass_15_speed_100      = calculate_binary_fraction(15,100,data_zero,data_one,data_three);
-binary_fraction_mass_20_speed_100      = calculate_binary_fraction(20,100,data_zero,data_one,data_three);
-binary_fraction_mass_100_speed_100     = calculate_binary_fraction(100,100,data_zero,data_one,data_three);
-
-% Extras
-binary_fraction_mass_10_speed_50_greater_than = calculate_binary_fraction_greater_than(10,50,data_zero,data_one,data_three);
-binary_fraction_mass_20_speed_50_greater_than = calculate_binary_fraction_greater_than(20,50,data_zero,data_one,data_three);
+binary_fraction_mass_2_5      = calculate_binary_fraction(2.5,data_zero,data_one,data_three);
+binary_fraction_mass_5        = calculate_binary_fraction(5,data_zero,data_one,data_three);
+binary_fraction_mass_10       = calculate_binary_fraction(10,data_zero,data_one,data_three);
+binary_fraction_mass_15       = calculate_binary_fraction(15,data_zero,data_one,data_three);
+binary_fraction_mass_20       = calculate_binary_fraction(20,data_zero,data_one,data_three);
+binary_fraction_mass_100      = calculate_binary_fraction(100,data_zero,data_one,data_three);
 
 % Single fraction (larger than given mass)
-fraction_abs_BH_sin_mass_2_5_speed_50  = calculate_single_absolute_fraction(2.5,50,data_zero,data_one,data_three);
-fraction_abs_BH_sin_mass_5_speed_50    = calculate_single_absolute_fraction(5,50,data_zero,data_one,data_three);
-fraction_abs_BH_sin_mass_10_speed_50   = calculate_single_absolute_fraction(10,50,data_zero,data_one,data_three);
-fraction_abs_BH_sin_mass_15_speed_50   = calculate_single_absolute_fraction(15,50,data_zero,data_one,data_three);
-fraction_abs_BH_sin_mass_20_speed_50   = calculate_single_absolute_fraction(20,50,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_2_5    = calculate_single_absolute_fraction(2.5,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_4      = calculate_single_absolute_fraction(4,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_5      = calculate_single_absolute_fraction(5,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_6      = calculate_single_absolute_fraction(6,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_8      = calculate_single_absolute_fraction(8,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_10     = calculate_single_absolute_fraction(10,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_12     = calculate_single_absolute_fraction(12,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_14     = calculate_single_absolute_fraction(14,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_15     = calculate_single_absolute_fraction(15,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_16     = calculate_single_absolute_fraction(16,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_18     = calculate_single_absolute_fraction(18,data_zero,data_one,data_three);
+fraction_abs_BH_sin_mass_20     = calculate_single_absolute_fraction(20,data_zero,data_one,data_three);
+
 
 if debugFlag
-    single_fraction_mass_5_speed_30
-    single_fraction_mass_10_speed_30
-    single_fraction_mass_15_speed_30
-    single_fraction_mass_20_speed_30
-    single_fraction_mass_100_speed_30
-    single_fraction_mass_5_speed_50
-    single_fraction_mass_10_speed_50
-    single_fraction_mass_15_speed_50
-    single_fraction_mass_20_speed_50
-    single_fraction_mass_100_speed_50
-    single_fraction_mass_5_speed_100
-    single_fraction_mass_10_speed_100
-    single_fraction_mass_15_speed_100
-    single_fraction_mass_20_speed_100
-    single_fraction_mass_100_speed_100
+    single_fraction_mass_5
+    single_fraction_mass_10
+    single_fraction_mass_15
+    single_fraction_mass_20
+    single_fraction_mass_100
 
-    binary_fraction_mass_5_speed_30
-    binary_fraction_mass_10_speed_30
-    binary_fraction_mass_15_speed_30
-    binary_fraction_mass_20_speed_30
-    binary_fraction_mass_100_speed_30
-    binary_fraction_mass_5_speed_50
-    binary_fraction_mass_10_speed_50
-    binary_fraction_mass_15_speed_50
-    binary_fraction_mass_20_speed_50
-    binary_fraction_mass_100_speed_50
-    binary_fraction_mass_5_speed_100
-    binary_fraction_mass_10_speed_100
-    binary_fraction_mass_15_speed_100
-    binary_fraction_mass_20_speed_100
-    binary_fraction_mass_100_speed_100
+    binary_fraction_mass_5
+    binary_fraction_mass_10
+    binary_fraction_mass_15
+    binary_fraction_mass_20
+    binary_fraction_mass_100
 
-
-    binary_fraction_mass_10_speed_50_greater_than
-    binary_fraction_mass_20_speed_50_greater_than
-
-    fraction_abs_BH_sin_mass_2_5_speed_50
-    fraction_abs_BH_sin_mass_5_speed_50
-    fraction_abs_BH_sin_mass_10_speed_50
-    fraction_abs_BH_sin_mass_15_speed_50
-    fraction_abs_BH_sin_mass_20_speed_50
+    fraction_abs_BH_sin_mass_2_5
+    fraction_abs_BH_sin_mass_4
+    fraction_abs_BH_sin_mass_5
+    fraction_abs_BH_sin_mass_6
+    fraction_abs_BH_sin_mass_8
+    fraction_abs_BH_sin_mass_10
+    fraction_abs_BH_sin_mass_12
+    fraction_abs_BH_sin_mass_14
+    fraction_abs_BH_sin_mass_15
+    fraction_abs_BH_sin_mass_16
+    fraction_abs_BH_sin_mass_18
+    fraction_abs_BH_sin_mass_20
 end
 
 
 if savaDataFlag
     save(   strcat('../data/fraction_Z_',label,'.mat'),...
-            'single_fraction_mass_5_speed_30',...
-            'single_fraction_mass_10_speed_30',...
-            'single_fraction_mass_15_speed_30',...
-            'single_fraction_mass_20_speed_30',...
-            'single_fraction_mass_100_speed_30',...
-            'single_fraction_mass_5_speed_50',...
-            'single_fraction_mass_10_speed_50',...
-            'single_fraction_mass_15_speed_50',...
-            'single_fraction_mass_20_speed_50',...
-            'single_fraction_mass_100_speed_50',...            
-            'single_fraction_mass_5_speed_100',...
-            'single_fraction_mass_10_speed_100',...
-            'single_fraction_mass_15_speed_100',...
-            'single_fraction_mass_20_speed_100',...
-            'single_fraction_mass_100_speed_100',...
-            'binary_fraction_mass_5_speed_30',...
-            'binary_fraction_mass_10_speed_30',...
-            'binary_fraction_mass_15_speed_30',...
-            'binary_fraction_mass_20_speed_30',...
-            'binary_fraction_mass_100_speed_30',...
-            'binary_fraction_mass_5_speed_50',...
-            'binary_fraction_mass_10_speed_50',...
-            'binary_fraction_mass_15_speed_50',...
-            'binary_fraction_mass_20_speed_50',...
-            'binary_fraction_mass_100_speed_50',...            
-            'binary_fraction_mass_5_speed_100',...
-            'binary_fraction_mass_10_speed_100',...
-            'binary_fraction_mass_15_speed_100',...
-            'binary_fraction_mass_20_speed_100',...
-            'binary_fraction_mass_100_speed_100',...
-            'fraction_abs_BH_sin_mass_2_5_speed_50',...
-            'fraction_abs_BH_sin_mass_5_speed_50',...
-            'fraction_abs_BH_sin_mass_10_speed_50',...
-            'fraction_abs_BH_sin_mass_15_speed_50',...
-            'fraction_abs_BH_sin_mass_20_speed_50')
+            'single_fraction_mass_2_5',...
+            'single_fraction_mass_5',...
+            'single_fraction_mass_10',...
+            'single_fraction_mass_15',...
+            'single_fraction_mass_20',...
+            'single_fraction_mass_100',...
+            'binary_fraction_mass_2_5',...
+            'binary_fraction_mass_5',...
+            'binary_fraction_mass_10',...
+            'binary_fraction_mass_15',...
+            'binary_fraction_mass_20',...
+            'binary_fraction_mass_100',...
+            'fraction_abs_BH_sin_mass_2_5',...
+            'fraction_abs_BH_sin_mass_4',...
+            'fraction_abs_BH_sin_mass_5',...
+            'fraction_abs_BH_sin_mass_6',...
+            'fraction_abs_BH_sin_mass_8',...
+            'fraction_abs_BH_sin_mass_10',...
+            'fraction_abs_BH_sin_mass_12',...
+            'fraction_abs_BH_sin_mass_14',...
+            'fraction_abs_BH_sin_mass_15',...
+            'fraction_abs_BH_sin_mass_16',...
+            'fraction_abs_BH_sin_mass_18',...
+            'fraction_abs_BH_sin_mass_20')
 end
 
 end
 
-function [fraction_BH_bin] =calculate_binary_fraction(mass_limit,velocity_limit,data_zero,data_one,data_three)
-    N_BH_sin    = nnz(find((data_zero(:,1) <= mass_limit) & (data_zero(:,2) <= velocity_limit)));
-    N_BH_1      = nnz(find((data_one(:,1) <= mass_limit) & (data_one(:,2) <= velocity_limit)));
-    N_BH_2      = nnz(find((data_three(:,1) <= mass_limit) & (data_three(:,2) <= velocity_limit)));
+function [fraction_BH_bin] =calculate_binary_fraction(mass_limit,data_zero,data_one,data_three)
+    N_BH_sin    = nnz(find((data_zero(:,1) <= mass_limit)));
+    N_BH_1      = nnz(find((data_one(:,1) <= mass_limit)));
+    N_BH_2      = nnz(find((data_three(:,1) <= mass_limit)));
     N_BH_bin    = N_BH_1 + N_BH_2;
     fraction_BH_bin = N_BH_bin/(N_BH_bin+N_BH_sin);
 end
 
-function [fraction_BH_sin] =calculate_single_fraction(mass_limit,velocity_limit,data_zero,data_one,data_three)
-    N_BH_sin    = nnz(find((data_zero(:,1) <= mass_limit) & (data_zero(:,2) <= velocity_limit)));
-    N_BH_1      = nnz(find((data_one(:,1) <= mass_limit) & (data_one(:,2) <= velocity_limit)));
-    N_BH_2      = nnz(find((data_three(:,1) <= mass_limit) & (data_three(:,2) <= velocity_limit)));
+function [fraction_BH_sin] =calculate_single_fraction(mass_limit,data_zero,data_one,data_three)
+    N_BH_sin    = nnz(find((data_zero(:,1) <= mass_limit)));
+    N_BH_1      = nnz(find((data_one(:,1) <= mass_limit)));
+    N_BH_2      = nnz(find((data_three(:,1) <= mass_limit)));
     N_BH_bin    = N_BH_1 + N_BH_2;
     fraction_BH_sin = N_BH_sin/(N_BH_bin+N_BH_sin);
 end
 
-function [fraction_BH_bin_greaterthan] =calculate_binary_fraction_greater_than(mass_limit,velocity_limit,data_zero,data_one,data_three)
-    N_BH_sin    = nnz(find((data_zero(:,1) > mass_limit) & (data_zero(:,2) <= velocity_limit)));
-    N_BH_1      = nnz(find((data_one(:,1) > mass_limit) & (data_one(:,2) <= velocity_limit)));
-    N_BH_2      = nnz(find((data_three(:,1) > mass_limit) & (data_three(:,2) <= velocity_limit)));
-    N_BH_bin    = N_BH_1 + N_BH_2;
-    fraction_BH_bin_greaterthan = N_BH_bin/(N_BH_bin+N_BH_sin);
-end
-
-function [fraction_abs_BH_sin] =calculate_single_absolute_fraction(mass_limit,velocity_limit,data_zero,data_one,data_three)
-    N_BH_sin    = nnz(find((data_zero(:,1) >= mass_limit) & (data_zero(:,2) <= velocity_limit)));
-    N_BH_1      = nnz(find((data_one(:,1) >= mass_limit) & (data_one(:,2) <= velocity_limit)));
-    N_BH_2      = nnz(find((data_three(:,1) >= mass_limit) & (data_three(:,2) <= velocity_limit)));
+function [fraction_abs_BH_sin] =calculate_single_absolute_fraction(mass_limit,data_zero,data_one,data_three)
+    N_BH_sin    = nnz(find((data_zero(:,1) >= mass_limit)));
+    N_BH_1      = nnz(find((data_one(:,1) >= mass_limit)));
+    N_BH_2      = nnz(find((data_three(:,1) >= mass_limit)));
     N_BH_bin    = N_BH_1 + N_BH_2;
     fraction_abs_BH_sin = N_BH_sin/(N_BH_bin+N_BH_sin);
 end
