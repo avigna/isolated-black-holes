@@ -17,7 +17,7 @@ If you use any scripts in this repo for results presented in a scientific public
 Vigna-Gómez, A. & Ramirez-Ruiz, E. 2022 (submitted)
 
 ## Author Contributions
-All scripts here were written and curated by Alejandro Vigna-Gómez. 
+All scripts written and curated by Alejandro Vigna-Gómez. 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
