@@ -1,4 +1,4 @@
-function calculate_and_plot_contours(filename, metallicity, debugFlag, plotFlag, savePlotFlag, savaDataFlag, densityInverval, lowerLimit)
+function referee_calculate_and_plot_contours(filename, metallicity, debugFlag, plotFlag, savePlotFlag, savaDataFlag, densityInverval, lowerLimit)
 label = num2str(metallicity);
 % MACROS
 % Stellar types as used in COMPAS, originally defined by Hurley+2000
@@ -33,8 +33,11 @@ velocity_Mroz = 40.1;
    iso_real_total_mass_ZAMS,...
    iso_kick_magnitude,...
    iso_mass_SN,...
-   iso_stellar_type_SN] = resampling_COMPAS(filename,debugFlag,lowerLimit);
+   iso_stellar_type_SN] = referee_resampling_COMPAS(filename,debugFlag,lowerLimit);
 realMassZAMS = sys_realMassZAMS+iso_real_total_mass_ZAMS;
+
+% Capping natal kick to 0
+iso_kick_magnitude(find(iso_kick_magnitude<0.0))=0;
 
 % /BSE_Supernovae
 SNe_component_speed_SN      = h5read(filename,'/BSE_Supernovae/ComponentSpeed(SN)');
@@ -47,6 +50,7 @@ SNe_stellar_type_SN         = h5read(filename,'/BSE_Supernovae/Stellar_Type(SN)'
 SNe_supernova_state         = h5read(filename,'/BSE_Supernovae/Supernova_State');
 SNe_systemic_speed          = h5read(filename,'/BSE_Supernovae/SystemicSpeed');
 SNe_unbound                 = h5read(filename,'/BSE_Supernovae/Unbound');
+
 
 % SNe_supernova_state
 % No supernova = 0
@@ -336,7 +340,7 @@ if plotFlag
     errorbar(mass_Mroz,velocity_Mroz,error_Mroz,'horizontal','k','LineWidth',lw,'HandleVisibility','off')    
     annotation('textarrow',[0.73 0.46],[0.5 0.24],'String','Sahu et al.','Fontsize',fs,'FontName','Times New Roman','LineWidth',lw)
     annotation('textarrow',[0.21 0.27],[0.5 0.20],'String','Lam et al.','Fontsize',fs,'FontName','Times New Roman','LineWidth',lw)
-    annotation('textarrow',[0.73 0.5],0.2175.*[1 1],'String','Mróz et al.','Fontsize',fs,'FontName','Times New Roman','LineWidth',lw)    
+    annotation('textarrow',[0.73 0.5],0.2175.*[1 1],'String','Mróz et al.','Fontsize',fs,'FontName','Times New Roman','LineWidth',lw)        
 
     if debugFlag
         scatter(iso_mass_SN(index_zero), iso_kick_magnitude(index_zero), sz, color0, 'Filled', 'MarkerFaceAlpha', alphaNum, 'MarkerEdgeAlpha', alphaNum,'HandleVisibility','off')        
@@ -355,8 +359,8 @@ if plotFlag
             'location','northeast',...
             'FontName','Times New Roman')
     if savePlotFlag
-        print(gcf,strcat('../plots/png/figure2a_Z=',label,'.png'),'-dpng','-r300');
-        saveas(gcf,strcat('../plots/pdf/figure2a_Z=',label,'.pdf'))
+        print(gcf,strcat('../plots/png/referee_figure2a_Z=',label,'.png'),'-dpng','-r300');
+        saveas(gcf,strcat('../plots/pdf/referee_figure2a_Z=',label,'.pdf'))
     end
 
     % Figure 2b
@@ -405,12 +409,12 @@ if plotFlag
         'location','northeast')
 
     if savePlotFlag
-        print(gcf,strcat('../plots/png/figure2b_Z=',label,'.png'),'-dpng','-r300');
-        saveas(gcf,strcat('../plots/pdf/figure2b_Z=',label,'.pdf'))
+        print(gcf,strcat('../plots/png/referee_figure2b_Z=',label,'.png'),'-dpng','-r300');
+        saveas(gcf,strcat('../plots/pdf/referee_figure2b_Z=',label,'.pdf'))
     end
 
     if metallicity == 0.02
-        % Figure 4    
+        % Figure 7    
         figure()
         lw2=2.5;
         hold on
@@ -448,8 +452,8 @@ if plotFlag
                 'location','northwest')
     
         if savePlotFlag
-            print(gcf,strcat('../plots/png/figure7_Z=',label,'.png'),'-dpng','-r300');
-            saveas(gcf,strcat('../plots/pdf/figure7_Z=',label,'.pdf'))
+            print(gcf,strcat('../plots/png/referee_figure7_Z=',label,'.png'),'-dpng','-r300');
+            saveas(gcf,strcat('../plots/pdf/referee_figure7_Z=',label,'.pdf'))
         end    
     end
 
@@ -467,7 +471,7 @@ M = [   realMassZAMS, ...
         number_twelve];
 
 if savaDataFlag
-    save(strcat('../data/Z_',label,'.mat'),'M')
+    save(strcat('../data/referee_Z_',label,'.mat'),'M')
 end
 
 if debugFlag
