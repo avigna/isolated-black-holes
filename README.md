@@ -14,7 +14,7 @@ Please email your queries to Alejandro Vigna-Gómez (avigna@mpa-garching.mpg.de)
 ## Acknowledgements
 If you use any scripts in this repo for results presented in a scientific publication, please cite:
 
-Vigna-Gómez, A. & Ramirez-Ruiz, E. 2022, <i>The Astrophysical Journal</i>, vol. 946, no. 1. doi:10.3847/2041-8213/acc076.
+Vigna-Gómez, A. & Ramirez-Ruiz, E. 2022, <i>The Astrophysical Journal</i>, vol. 946, no. 1.
 
 
 ## Author Contributions
